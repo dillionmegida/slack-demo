@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
+import Header from './components/Header';
 
 export default function App() {
   const [loadingUser, setLoadingUser] = useState(true);
@@ -27,7 +28,7 @@ export default function App() {
       setLoggedInUser(user);
     };
 
-    initUser();
+    initUser().then(() => setLoadingUser(false));
   }, []);
 
   return (
@@ -42,6 +43,7 @@ export default function App() {
               setUser: setLoggedInUser,
             }}
           >
+            <Header />
             <PrivateRoute path="/" exact>
               <Homepage />
             </PrivateRoute>

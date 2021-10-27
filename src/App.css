@@ -14,3 +14,8 @@ body {
   min-height: 800px;
   padding: 20px;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+}
