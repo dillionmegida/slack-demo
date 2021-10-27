@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import AuthContext from 'src/contexts/AuthContext';
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
-import logInUser from 'src/queries/loginUser';
 import { Link } from 'react-router-dom';
+import createUser from 'src/queries/createUser';
 
 const Container = styled.div`
   h1 {
@@ -62,9 +62,9 @@ export default function Login() {
   const { handleSubmit, register } = useForm<InputValues>();
 
   const onSubmit = async (values: InputValues) => {
-    const res = await logInUser(values);
+    const res = await createUser(values);
 
-    if (!res) return toast.error('Wrong credentials');
+    if (!res) return toast.error('Cannot signup. Try a different email');
 
     setUser(res);
   };
