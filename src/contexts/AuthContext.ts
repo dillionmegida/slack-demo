@@ -4,7 +4,7 @@ import UserInterface from 'src/interfaces/UserInterface';
 type ContextProps = {
   user: UserInterface | null;
   loadingUser: boolean;
-  setUser: (u: UserInterface) => void;
+  setUser: (u: UserInterface | null) => void;
 };
 
 const AuthContext = createContext<ContextProps>({

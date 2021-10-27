@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import AuthContext from 'src/contexts/AuthContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import logInUser from 'src/queries/loginUser';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Container = styled.div`
   h1 {
@@ -56,14 +56,23 @@ type InputValues = {
 };
 
 export default function Login() {
-  let { setUser } = useContext(AuthContext);
+  let { user, setUser } = useContext(AuthContext);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user) {
+      toast.success('You are logged in!');
+      history.push('/');
+    }
+  }, [user, history]);
 
   const { handleSubmit, register } = useForm<InputValues>();
 
   const onSubmit = async (values: InputValues) => {
     const res = await logInUser(values);
 
-    if (!res) return toast.error('Wrong credentials');
+    if (res.status === 'error') return toast.error(res.message);
 
     setUser(res);
   };
