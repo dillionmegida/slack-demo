@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { SERVER_URL } from 'src/constants';
 import UserInterface from 'src/interfaces/UserInterface';
+import { setCookie } from 'src/utils/cookies';
+import parseServerError from './parseServerError';
 
 type Args = {
   name: string;
@@ -10,7 +12,9 @@ type Args = {
 
 export default async function createUser(
   values: Args
-): Promise<UserInterface | null> {
+): Promise<
+  (UserInterface & { status: 'success' }) | { message: string; status: 'error' }
+> {
   try {
     const res = await axios({
       method: 'POST',
@@ -18,8 +22,10 @@ export default async function createUser(
       data: { ...values },
     });
 
+    setCookie('AUTH', res.data.token);
+
     return res.data;
-  } catch {
-    return null;
+  } catch (err) {
+    return { status: 'error', message: parseServerError(err) };
   }
 }
