@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import AuthContext from 'src/contexts/AuthContext';
 
 const SHeader = styled.header`
-  padding: 0 20px 10px;
+  padding: 0 0 10px;
   border-bottom: 1px solid #e6e6e6;
   display: flex;
   justify-content: space-between;

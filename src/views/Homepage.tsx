@@ -2,28 +2,17 @@ import { useContext, useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 import AuthContext from 'src/contexts/AuthContext';
-import UserInterface from 'src/interfaces/UserInterface';
 import connectUser from 'src/queries/connectUser';
+import ChatContainer from 'src/components/ChatContainer';
 
 import { StreamChat } from 'stream-chat';
-import {
-  ChannelList,
-  Chat,
-  Window,
-  Channel,
-  ChannelHeader,
-} from 'stream-chat-react';
+import { Chat } from 'stream-chat-react';
 
 const API_KEY = process.env.REACT_APP_STREAM_API_KEY as string;
 
 export default function Homepage() {
   const { user } = useContext(AuthContext);
   const [chatClient, setChatClient] = useState<any>(null);
-
-  const filters = {
-    type: 'team',
-    members: { $in: [(user as UserInterface)._id] },
-  };
 
   useEffect(() => {
     const initChat = async () => {
@@ -46,34 +35,36 @@ export default function Homepage() {
 
       setChatClient(client);
 
-      // add user to general channel
-      client
-        .channel('team', 'general', {
-          name: 'General',
-          image: 'https://dillionmegida.com/img/deee.jpg',
-        })
-        .addMembers([user._id]);
+      // add user to general and random channel
+      const generalChannel = client.channel('team', 'general', {
+        name: 'General',
+        image: 'https://dillionmegida.com/img/deee.jpg',
+      });
+      const randomChannel = client.channel('team', 'random', {
+        name: 'Random',
+        image:
+          'https://i.picsum.photos/id/195/200/300.jpg?hmac=4jGQkshsI0i2q2zt0L5AnB3c8yyqVBkmkYR0zDKIpRQ',
+      });
+
+      generalChannel.create();
+      generalChannel.addMembers([user._id]);
+
+      randomChannel.create();
+      randomChannel.addMembers([user._id]);
     };
 
     initChat();
 
     return () => {
-      chatClient.disconnectUser();
+      chatClient?.disconnectUser();
     };
   }, [user]);
 
   if (!chatClient) return null;
 
   return (
-    <div>
-      <Chat client={chatClient}>
-        <ChannelList filters={filters} />
-        <Channel>
-          <Window>
-            <ChannelHeader />
-          </Window>
-        </Channel>
-      </Chat>
-    </div>
+    <Chat client={chatClient} theme="">
+      <ChatContainer />
+    </Chat>
   );
 }
