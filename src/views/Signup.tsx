@@ -55,6 +55,7 @@ type InputValues = {
   name: string;
   email: string;
   password: string;
+  image: string;
 };
 
 export default function Login() {
@@ -98,6 +99,10 @@ export default function Login() {
         <div className="input-group">
           <label htmlFor="password">Password</label>
           <input id="password" {...register('password')} type="password" />
+        </div>
+        <div className="input-group">
+          <label htmlFor="image">Image URL</label>
+          <input id="image" {...register('image')} />
         </div>
         <div className="submit-block">
           <button type="submit">Login</button>

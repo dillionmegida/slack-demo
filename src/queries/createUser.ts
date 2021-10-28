@@ -8,6 +8,7 @@ type Args = {
   name: string;
   email: string;
   password: string;
+  image: string;
 };
 
 export default async function createUser(
