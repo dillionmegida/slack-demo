@@ -3,7 +3,9 @@ import { SERVER_URL } from 'src/constants';
 import UserInterface from 'src/interfaces/UserInterface';
 import { getCookie } from 'src/utils/cookies';
 
-export default async function getLoggedInUser(): Promise<UserInterface | null> {
+export default async function getLoggedInUser(): Promise<{
+  user: UserInterface | null;
+}> {
   try {
     const res = await axios({
       method: 'GET',
@@ -15,7 +17,6 @@ export default async function getLoggedInUser(): Promise<UserInterface | null> {
 
     return res.data;
   } catch (err) {
-    console.log({ err });
-    return null;
+    return { user: null };
   }
 }

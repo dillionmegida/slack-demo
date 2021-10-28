@@ -10,10 +10,11 @@ import getLoggedInUser from './queries/getLoggedInUser';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './views/Login';
 import { ToastContainer } from 'react-toastify';
+import Header from './components/Header';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from './components/Header';
+import 'stream-chat-react/dist/css/index.css';
 
 export default function App() {
   const [loadingUser, setLoadingUser] = useState(true);
@@ -21,11 +22,11 @@ export default function App() {
 
   useEffect(() => {
     const initUser = async () => {
-      const user = await getLoggedInUser();
+      const res = await getLoggedInUser();
 
-      if (!user) return setLoadingUser(false);
+      if (!res.user) return setLoadingUser(false);
 
-      setLoggedInUser(user);
+      setLoggedInUser(res.user);
     };
 
     initUser().then(() => setLoadingUser(false));
