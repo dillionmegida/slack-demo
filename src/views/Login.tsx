@@ -74,7 +74,7 @@ export default function Login() {
 
     if (res.status === 'error') return toast.error(res.message);
 
-    setUser(res);
+    setUser(res.user);
   };
 
   return (
