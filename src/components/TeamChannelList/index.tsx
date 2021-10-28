@@ -1,14 +1,10 @@
 import { useContext } from 'react';
 import AuthContext from 'src/contexts/AuthContext';
 import UserInterface from 'src/interfaces/UserInterface';
-import {
-  ChannelList,
-  ChannelListMessengerProps,
-  ChannelListProps,
-  useChannelStateContext,
-} from 'stream-chat-react';
+import { ChannelList } from 'stream-chat-react';
 import styled from 'styled-components';
-import ChannelListItemPreview from './ChannelListItemPreview';
+import ChannelListItemPreview from '../ChatContainer/ChannelListItemPreview';
+import ChannelListContainer from './ListContainer';
 
 const Container = styled.div`
   h2 {
@@ -29,19 +25,6 @@ const Container = styled.div`
   }
 `;
 
-const ListContainer = (props: any) => {
-  const { loading, children } = props;
-
-  if (loading)
-    return (
-      <div className="channel-list">
-        <p className="channel-list__message">Channels are loading...</p>
-      </div>
-    );
-
-  return <div className="channel-list">{children}</div>;
-};
-
 export default function TeamChannelList() {
   const { user } = useContext(AuthContext);
 
@@ -55,7 +38,7 @@ export default function TeamChannelList() {
       <h2>Channels</h2>
       <ChannelList
         filters={filters}
-        List={listProps => <ListContainer {...listProps} />}
+        List={listProps => <ChannelListContainer {...listProps} />}
         Preview={previewProps => <ChannelListItemPreview {...previewProps} />}
       />
     </Container>

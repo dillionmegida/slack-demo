@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import ChannelChatPreview from './ChannelChatPreview';
-import TeamChannelList from './TeamChannelList';
+import ChannelChatPreview from '../ChannelChatPreview';
+import TeamChannelList from '../TeamChannelList';
 import { Channel } from 'stream-chat-react';
 
 const Container = styled.div`

@@ -17,7 +17,6 @@ export default async function connectUser(
 
     return res.data;
   } catch (err) {
-    console.log({ err });
     return { status: 'error', message: parseServerError(err) };
   }
 }
