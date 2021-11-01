@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import ChannelChatPreview from '../ChannelChatPreview';
 import TeamChannelList from '../TeamChannelList';
 import { Channel } from 'stream-chat-react';
+import AppContext, { CreatingChannel } from 'src/contexts/AppContext';
+import { useState } from 'react';
+import CreateMessagingChannel from '../CreateMessagingChannel';
 
 const Container = styled.div`
   background-color: #333;
@@ -27,17 +30,29 @@ const Container = styled.div`
   }
 `;
 
-export default function ChannelContainer() {
+export default function ChatContainer() {
+  const [creatingChannel, setCreatingChannel] = useState<CreatingChannel>({
+    type: null,
+    status: false,
+  });
+
+  const rightContentToRender =
+    creatingChannel.status && creatingChannel.type === 'messaging' ? (
+      <CreateMessagingChannel />
+    ) : (
+      <ChannelChatPreview />
+    );
+
   return (
-    <Container>
-      <div className="left-column">
-        <TeamChannelList />
-      </div>
-      <div className="right-column">
-        <Channel>
-          <ChannelChatPreview />
-        </Channel>
-      </div>
-    </Container>
+    <AppContext.Provider value={{ setCreatingChannel, creatingChannel }}>
+      <Container>
+        <div className="left-column">
+          <TeamChannelList />
+        </div>
+        <div className="right-column">
+          <Channel>{rightContentToRender}</Channel>
+        </div>
+      </Container>
+    </AppContext.Provider>
   );
 }

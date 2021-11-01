@@ -10,7 +10,6 @@ import getLoggedInUser from './queries/getLoggedInUser';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './views/Login';
 import { ToastContainer } from 'react-toastify';
-import Header from './components/Header';
 
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';

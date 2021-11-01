@@ -4,6 +4,7 @@ import { destroyCookie } from 'src/utils/cookies';
 import { useContext } from 'react';
 import AuthContext from 'src/contexts/AuthContext';
 import { StreamUserInterface } from 'src/interfaces/UserInterface';
+import MultipleImages from '../MultipleImages';
 
 const Header = styled.header`
   display: flex;
@@ -18,13 +19,17 @@ const Header = styled.header`
     display: flex;
     align-items: center;
 
+    &__text {
+      margin-left: 10px;
+    }
+
     h2 {
       margin: 0;
       color: #ccc;
       font-size: 14px;
     }
 
-    &__image {
+    &__images {
       margin-right: 10px;
       width: 20px;
       height: 20px;
@@ -66,12 +71,16 @@ const Header = styled.header`
   }
 `;
 
-export default function ChannelHeader() {
+export default function MessageHeader() {
   const { channel } = useChatContext();
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
-  const description =
-    (channel?.data?.description as string) || 'No description';
+  const membersState = channel?.state?.members || {};
+  const members: StreamUserInterface[] = [];
+
+  for (let id in membersState) {
+    members.push(membersState[id]?.user as StreamUserInterface);
+  }
 
   const logout = () => {
     destroyCookie('AUTH');
@@ -82,12 +91,9 @@ export default function ChannelHeader() {
     <Header>
       {channel && (
         <div className="channel-info">
-          <div className="channel-info__image">
-            <img src={channel?.data?.image} alt="" />
-          </div>
-          <div>
-            <h2>#{channel?.id}</h2>
-            <p className="channel-info__desc">{description}</p>
+          <MultipleImages sources={members.map(m => m.image)} />
+          <div className="channel-info__text">
+            <h2>{channel?.data?.name}</h2>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
-import { MessageList, MessageInput } from 'stream-chat-react';
+import { MessageList, MessageInput, useChatContext } from 'stream-chat-react';
 import styled from 'styled-components';
 import ChannelHeader from './ChannelHeader';
+import MessageHeader from './MessageHeader';
 
 const Container = styled.div`
   display: flex;
@@ -65,9 +66,11 @@ const Container = styled.div`
 `;
 
 export default function ChannelChatPreview() {
+  const { channel } = useChatContext();
+
   return (
     <Container>
-      <ChannelHeader />
+      {channel?.type === 'messaging' ? <MessageHeader /> : <ChannelHeader />}
       <div className="chat-body">
         <MessageList />
         <MessageInput />
