@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { setStorageItem } from 'src/utils/storage';
 
 const ListItem = styled.button`
   background-color: #333333;
@@ -27,7 +28,10 @@ export default function ChannelListItemPreview(props: any) {
   return (
     <ListItem
       className={activeChannel.cid === channel.cid ? 'active' : ''}
-      onClick={() => setActiveChannel(channel)}
+      onClick={() => {
+        setStorageItem('last_opened_channel', channel.id);
+        setActiveChannel(channel);
+      }}
     >
       # {channel?.data?.id}
     </ListItem>

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import AppContext from 'src/contexts/AppContext';
 import AuthContext from 'src/contexts/AuthContext';
 import { StreamUserInterface } from 'src/interfaces/UserInterface';
+import { setStorageItem } from 'src/utils/storage';
 import { capitalize } from 'src/utils/string';
 import { useChatContext } from 'stream-chat-react';
 import styled from 'styled-components';
@@ -114,6 +115,7 @@ export default function CreateMessagingChannel() {
         .join(', '),
       members: [client?.user?.id as string, ...addedUsers.map(u => u.id)],
     });
+    setStorageItem('last_opened_channel', channel.id);
 
     setActiveChannel(channel);
 

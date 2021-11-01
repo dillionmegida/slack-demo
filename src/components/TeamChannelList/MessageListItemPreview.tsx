@@ -1,4 +1,5 @@
 import { StreamUserInterface } from 'src/interfaces/UserInterface';
+import { setStorageItem } from 'src/utils/storage';
 import styled from 'styled-components';
 import MultipleImages from '../MultipleImages';
 
@@ -43,6 +44,7 @@ export default function MessageListItemPreview(props: any) {
     <ListItem
       className={activeChannel.cid === channel.cid ? 'active' : ''}
       onClick={() => {
+        setStorageItem('last_opened_channel', channel.id);
         setActiveChannel(channel);
       }}
     >
