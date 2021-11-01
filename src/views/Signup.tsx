@@ -58,7 +58,7 @@ type InputValues = {
   image: string;
 };
 
-export default function Login() {
+export default function Signup() {
   let { user, setUser } = useContext(AuthContext);
   const history = useHistory();
 
@@ -78,7 +78,7 @@ export default function Login() {
 
     toast.success('Account created successfully 🚀');
 
-    setUser(res);
+    setUser(res.user);
   };
 
   return (

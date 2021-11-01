@@ -14,7 +14,8 @@ type Args = {
 export default async function createUser(
   values: Args
 ): Promise<
-  (UserInterface & { status: 'success' }) | { message: string; status: 'error' }
+  | { user: UserInterface; status: 'success' }
+  | { message: string; status: 'error' }
 > {
   try {
     const res = await axios({
@@ -25,7 +26,7 @@ export default async function createUser(
 
     setCookie('AUTH', res.data.token);
 
-    return res.data;
+    return { user: res.data.user, status: 'success' };
   } catch (err) {
     return { status: 'error', message: parseServerError(err) };
   }

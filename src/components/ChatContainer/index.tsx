@@ -5,18 +5,20 @@ import { Channel } from 'stream-chat-react';
 
 const Container = styled.div`
   background-color: #333;
-  height: calc(100vh - 100px);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
 
   .left-column {
     width: 300px;
     border-right: 1px solid #ccc;
-    padding: 20px;
   }
 
   .right-column {
     flex: 1;
-    padding: 20px;
     height: 100%;
 
     .str-chat {

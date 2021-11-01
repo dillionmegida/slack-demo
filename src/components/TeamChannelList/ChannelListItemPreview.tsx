@@ -2,18 +2,22 @@ import styled from 'styled-components';
 
 const ListItem = styled.button`
   background-color: #333333;
-  padding: 10px;
+  padding: 10px 20px;
   color: #ccc;
   border: none;
-  border-bottom: 1px solid #ccc;
   cursor: pointer;
   width: 100%;
   text-align: left;
+  border-radius: 0;
 
   &:hover,
   &.active {
-    background-color: white;
-    color: #333;
+    background-color: #404040;
+  }
+
+  &.active {
+    color: white;
+    font-weight: bold;
   }
 `;
 

@@ -1,12 +1,23 @@
+import styled from 'styled-components';
+
+const Container = styled.div`
+  .no-message-text {
+    padding: 0 20px;
+    color: #ccc;
+    font-size: 15px;
+  }
+`;
+
 export default function ChannelListContainer(props: any) {
   const { loading, children } = props;
 
-  if (loading)
-    return (
-      <div className="channel-list">
-        <p className="channel-list__message">Channels are loading...</p>
-      </div>
-    );
-
-  return <div className="channel-list">{children}</div>;
+  return (
+    <Container>
+      {loading ? (
+        <div className="no-message-text">Channels are loading...</div>
+      ) : (
+        children
+      )}
+    </Container>
+  );
 }

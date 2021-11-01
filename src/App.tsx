@@ -44,7 +44,6 @@ export default function App() {
               setUser: setLoggedInUser,
             }}
           >
-            <Header />
             <PrivateRoute path="/" exact>
               <Homepage />
             </PrivateRoute>
