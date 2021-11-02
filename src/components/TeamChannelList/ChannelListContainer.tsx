@@ -1,4 +1,3 @@
-import {  useEffect } from 'react';
 import { getStorageItem } from 'src/utils/storage';
 import { ChannelListMessengerProps, useChatContext } from 'stream-chat-react';
 import styled from 'styled-components';
@@ -31,19 +30,17 @@ export default function ListContainer({
 }: Pick<ChannelListMessengerProps, 'loading'> & Props) {
   const { setActiveChannel, client } = useChatContext();
 
-  useEffect(() => {
-    const activeChannels = client.activeChannels;
+  const activeChannels = client.activeChannels;
 
-    const lastOpenedChannel = getStorageItem('last_opened_channel');
+  const lastOpenedChannel = getStorageItem('last_opened_channel');
 
-    for (let cid in activeChannels) {
-      const channel = activeChannels[cid];
-      if (channel.id === lastOpenedChannel) {
-        setActiveChannel(channel);
-        break;
-      }
+  for (let cid in activeChannels) {
+    const channel = activeChannels[cid];
+    if (channel.id === lastOpenedChannel) {
+      setActiveChannel(channel);
+      break;
     }
-  }, []);
+  }
 
   const loadingText =
     type === 'messaging' ? 'Loading messages...' : 'Loading team channels...';
