@@ -42,6 +42,7 @@ export default function BrowseChannels() {
 
     setStorageItem('last_opened_channel', channel.id);
 
+    channel.watch();
     setActiveChannel(channel);
 
     setCreatingChannel({ type: null, status: false });

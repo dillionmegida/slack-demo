@@ -30,7 +30,7 @@ type Props = {
 export default function MultipleImages({ sources, size = 30 }: Props) {
   return (
     <Container size={size}>
-      {sources.map((source, index) => (
+      {sources.map(source => (
         <div key={source} className="image">
           <img src={source} alt="" />
         </div>

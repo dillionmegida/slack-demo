@@ -1,5 +1,5 @@
-import { StreamUserInterface } from 'src/interfaces/UserInterface';
 import { capitalize } from 'src/utils/string';
+import { User } from 'stream-chat';
 import styled from 'styled-components';
 
 const Item = styled.li`
@@ -47,8 +47,8 @@ const Item = styled.li`
 `;
 
 type Props = {
-  user: StreamUserInterface;
-  handleAdd: (user: StreamUserInterface) => void;
+  user: User;
+  handleAdd: (user: User) => void;
   added: boolean;
 };
 
@@ -56,9 +56,9 @@ export default function UserItem({ user, handleAdd, added = false }: Props) {
   return (
     <Item>
       <div className="image">
-        <img src={user.image} alt="" />
+        <img src={user.image as string} alt="" />
       </div>
-      <span className="name">{capitalize(user.name)}</span>
+      <span className="name">{capitalize(user.name as string)}</span>
       <button className={added ? 'added' : ''} onClick={() => handleAdd(user)}>
         {added ? 'Added' : 'Add'}
       </button>

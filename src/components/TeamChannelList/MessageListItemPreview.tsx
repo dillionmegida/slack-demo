@@ -1,5 +1,5 @@
-import { StreamUserInterface } from 'src/interfaces/UserInterface';
 import { setStorageItem } from 'src/utils/storage';
+import { User } from 'stream-chat';
 import styled from 'styled-components';
 import MultipleImages from '../MultipleImages';
 
@@ -34,10 +34,10 @@ export default function MessageListItemPreview(props: any) {
   const { channel, setActiveChannel, activeChannel } = props;
 
   const membersState = channel?.state?.members || {};
-  const members: StreamUserInterface[] = [];
+  const members: User[] = [];
 
   for (let id in membersState) {
-    members.push(membersState[id]?.user as StreamUserInterface);
+    members.push(membersState[id]?.user as User);
   }
 
   return (
@@ -48,7 +48,7 @@ export default function MessageListItemPreview(props: any) {
         setActiveChannel(channel);
       }}
     >
-      <MultipleImages size={20} sources={members.map(m => m.image)} />
+      <MultipleImages size={20} sources={members.map(m => m.image as string)} />
       <span className="name">{channel?.data?.name}</span>
     </ListItem>
   );

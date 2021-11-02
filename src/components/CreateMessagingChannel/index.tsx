@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import AppContext from 'src/contexts/AppContext';
 import AuthContext from 'src/contexts/AuthContext';
-import { StreamUserInterface } from 'src/interfaces/UserInterface';
 import { setStorageItem } from 'src/utils/storage';
 import { capitalize } from 'src/utils/string';
+import { User } from 'stream-chat';
 import { useChatContext } from 'stream-chat-react';
 import styled from 'styled-components';
 import UserItem from './UserItem';
@@ -74,18 +74,21 @@ const Container = styled.div`
 export default function CreateMessagingChannel() {
   const { user } = useContext(AuthContext);
   const { setCreatingChannel } = useContext(AppContext);
+
   const [loadingUsers, setLoadingUsers] = useState(true);
-  const [users, setUsers] = useState<StreamUserInterface[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [addedUsers, setAddedUsers] = useState<User[]>([]);
+
   const { client, setActiveChannel } = useChatContext();
 
-  const [addedUsers, setAddedUsers] = useState<StreamUserInterface[]>([]);
-
-  const handleAddUsers = (user: StreamUserInterface) => {
+  const handleAddUsers = (user: User) => {
     if (addedUsers.find(addedUser => addedUser.id === user.id))
       return setAddedUsers(
+        // remove user from the array
         addedUsers.filter(addedUser => addedUser.id !== user.id)
       );
 
+    // add user to the array
     setAddedUsers([...addedUsers, user]);
   };
 
@@ -96,10 +99,12 @@ export default function CreateMessagingChannel() {
       const response = await client.queryUsers({});
 
       const users = response.users.filter(
+        // "dillion-megida-stream" is the admin of the app
+        // filter out the admin, and the current user
         u => u.id !== 'dillion-megida-stream' && u.id !== client?.user?.id
       );
 
-      setUsers(users as unknown as StreamUserInterface[]);
+      setUsers(users);
       setLoadingUsers(false);
     };
 
@@ -109,7 +114,7 @@ export default function CreateMessagingChannel() {
   const createChannel = async () => {
     const channel = client.channel('messaging', {
       name: [user?.name]
-        .concat(addedUsers.map(u => capitalize(u.name)))
+        .concat(addedUsers.map(u => capitalize(u?.name as string)))
         .join(', '),
       members: [client?.user?.id as string, ...addedUsers.map(u => u.id)],
     });
@@ -139,7 +144,7 @@ export default function CreateMessagingChannel() {
               {addedUsers.length ? (
                 <div className="added-users__block">
                   <div>
-                    ---&gt; {addedUsers.map(u => capitalize(u.name)).join(', ')}
+                    ---&gt; {addedUsers.map(u => capitalize(u.name as string)).join(', ')}
                   </div>
                   <button
                     className="added-users__create-btn"

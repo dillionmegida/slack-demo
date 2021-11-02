@@ -1,9 +1,6 @@
 import cookie from 'js-cookie';
 
 const domain = 'localhost';
-//   process.env.NODE_ENV === "development"
-//     ? "localhost"
-//     : SITE.DOMAIN.replace("https://", "");
 
 type Key = 'AUTH';
 

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { destroyCookie } from 'src/utils/cookies';
 import { useContext } from 'react';
 import AuthContext from 'src/contexts/AuthContext';
-import { StreamUserInterface } from 'src/interfaces/UserInterface';
 
 const Header = styled.header`
   display: flex;

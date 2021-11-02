@@ -2,10 +2,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Signup from 'src/views/Signup';
 import Homepage from 'src/views/Homepage';
 import AuthContext from 'src/contexts/AuthContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import UserInterface from 'src/interfaces/UserInterface';
-import { useEffect } from 'react';
-
 import getLoggedInUser from './queries/getLoggedInUser';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './views/Login';

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { destroyCookie } from 'src/utils/cookies';
 import { useContext } from 'react';
 import AuthContext from 'src/contexts/AuthContext';
-import { StreamUserInterface } from 'src/interfaces/UserInterface';
 import MultipleImages from '../MultipleImages';
+import { User } from 'stream-chat';
 
 const Header = styled.header`
   display: flex;
@@ -73,13 +73,13 @@ const Header = styled.header`
 
 export default function MessageHeader() {
   const { channel } = useChatContext();
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   const membersState = channel?.state?.members || {};
-  const members: StreamUserInterface[] = [];
+  const members: User[] = [];
 
   for (let id in membersState) {
-    members.push(membersState[id]?.user as StreamUserInterface);
+    members.push(membersState[id]?.user as User);
   }
 
   const logout = () => {
@@ -91,7 +91,7 @@ export default function MessageHeader() {
     <Header>
       {channel && (
         <div className="channel-info">
-          <MultipleImages sources={members.map(m => m.image)} />
+          <MultipleImages sources={members.map(m => m.image as string)} />
           <div className="channel-info__text">
             <h2>{channel?.data?.name}</h2>
           </div>

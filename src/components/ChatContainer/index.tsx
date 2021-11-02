@@ -43,6 +43,7 @@ export default function ChatContainer() {
     null: <ChannelChatPreview />,
   };
 
+
   const activeRightContentToRender = !creatingChannel.status ? (
     <ChannelChatPreview />
   ) : (

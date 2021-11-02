@@ -80,17 +80,15 @@ export default function TeamChannelList() {
     members: { $in: [(user as UserInterface)._id] },
   };
 
-  const customTeamFilter = (channels: Channel[]) => {
-    return channels.filter(f => f.type === 'team');
-  };
+  const customTeamFilter = (channels: Channel[]) =>
+    channels.filter(f => f.type === 'team');
 
   const messageFilters = {
     members: { $in: [(user as UserInterface)._id] },
   };
 
-  const customMessagingFilter = (channels: Channel[]) => {
-    return channels.filter(f => f.type === 'messaging');
-  };
+  const customMessagingFilter = (channels: Channel[]) =>
+    channels.filter(f => f.type === 'messaging');
 
   const addChannel = (type: 'messaging' | 'team') => {
     if (creatingChannel.type !== type)
@@ -99,7 +97,7 @@ export default function TeamChannelList() {
 
   useEffect(() => {
     client.on('member.added', () => {
-      setChannelListKey(randomStr());
+      setChannelListKey(randomStr()); // to trigger a re-render so that the updated channels are shown
     });
   }, []);
 

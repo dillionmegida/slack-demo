@@ -1,10 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-
 import { toast } from 'react-toastify';
 import AuthContext from 'src/contexts/AuthContext';
-import connectUser from 'src/queries/connectUser';
+import getStreamToken from 'src/queries/getStreamToken';
 import ChatContainer from 'src/components/ChatContainer';
-
 import { StreamChat } from 'stream-chat';
 import { Chat } from 'stream-chat-react';
 
@@ -20,7 +18,7 @@ export default function Homepage() {
 
       const client = new StreamChat(API_KEY);
 
-      const res = await connectUser(user._id);
+      const res = await getStreamToken(user._id);
 
       if (res.status === 'error') return toast.error(res.message);
 

@@ -1,7 +1,5 @@
 import { useContext, useState } from 'react';
 import AppContext from 'src/contexts/AppContext';
-import AuthContext from 'src/contexts/AuthContext';
-import { useChatContext } from 'stream-chat-react';
 import styled from 'styled-components';
 import BrowseChannels from './BrowseChannels';
 import CreateChannel from './CreateChannel';
@@ -58,9 +56,7 @@ const TABS = [
 ];
 
 export default function AddPublicChannel() {
-  const { user } = useContext(AuthContext);
   const { setCreatingChannel } = useContext(AppContext);
-  const { client, setActiveChannel } = useChatContext();
 
   const [activeTab, setActiveTab] = useState(TABS[0].id);
 

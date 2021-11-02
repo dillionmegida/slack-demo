@@ -60,6 +60,8 @@ type InputValues = {
 
 export default function Signup() {
   let { user, setUser } = useContext(AuthContext);
+  const { handleSubmit, register } = useForm<InputValues>();
+
   const history = useHistory();
 
   useEffect(() => {
@@ -68,8 +70,6 @@ export default function Signup() {
       history.push('/');
     }
   }, [user, history]);
-
-  const { handleSubmit, register } = useForm<InputValues>();
 
   const onSubmit = async (values: InputValues) => {
     const res = await createUser(values);
@@ -90,19 +90,27 @@ export default function Signup() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="input-group">
           <label htmlFor="name">Name</label>
-          <input id="name" {...register('name')} />
+          <input id="name" {...register('name', { required: true })} />
         </div>
         <div className="input-group">
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" {...register('email')} />
+          <input
+            id="email"
+            type="email"
+            {...register('email', { required: true })}
+          />
         </div>
         <div className="input-group">
           <label htmlFor="password">Password</label>
-          <input id="password" {...register('password')} type="password" />
+          <input
+            id="password"
+            {...register('password', { required: true })}
+            type="password"
+          />
         </div>
         <div className="input-group">
           <label htmlFor="image">Image URL</label>
-          <input id="image" {...register('image')} />
+          <input id="image" {...register('image', { required: true })} />
         </div>
         <div className="submit-block">
           <button type="submit">Login</button>
