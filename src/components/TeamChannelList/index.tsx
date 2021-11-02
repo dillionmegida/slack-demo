@@ -88,7 +88,8 @@ export default function TeamChannelList() {
   };
 
   const addChannel = (type: 'messaging' | 'team') => {
-    if (!creatingChannel.status) setCreatingChannel({ type, status: true });
+    if (creatingChannel.type !== type)
+      setCreatingChannel({ type, status: true });
   };
 
   return (
