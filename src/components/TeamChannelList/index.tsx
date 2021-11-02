@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AuthContext from 'src/contexts/AuthContext';
 import UserInterface from 'src/interfaces/UserInterface';
-import { ChannelList } from 'stream-chat-react';
+import { ChannelList, useChatContext } from 'stream-chat-react';
 import styled from 'styled-components';
 import ChannelListItemPreview from './ChannelListItemPreview';
 import ChannelListContainer from './ChannelListContainer';
@@ -67,9 +67,14 @@ const Container = styled.div`
   }
 `;
 
+const randomStr = () => Math.random().toString();
+
 export default function TeamChannelList() {
   const { user } = useContext(AuthContext);
   const { creatingChannel, setCreatingChannel } = useContext(AppContext);
+  const { client } = useChatContext();
+
+  const [channelListKey, setChannelListKey] = useState(randomStr());
 
   const teamFilters = {
     members: { $in: [(user as UserInterface)._id] },
@@ -92,6 +97,12 @@ export default function TeamChannelList() {
       setCreatingChannel({ type, status: true });
   };
 
+  useEffect(() => {
+    client.on('member.added', () => {
+      setChannelListKey(randomStr());
+    });
+  }, []);
+
   return (
     <Container>
       <section>
@@ -104,6 +115,7 @@ export default function TeamChannelList() {
             <button onClick={() => addChannel('team')}>+</button>
           </div>
           <ChannelList
+            key={channelListKey}
             filters={teamFilters}
             channelRenderFilterFn={customTeamFilter}
             List={listProps => (
@@ -120,6 +132,7 @@ export default function TeamChannelList() {
             <button onClick={() => addChannel('messaging')}>+</button>
           </div>
           <ChannelList
+            key={channelListKey}
             filters={messageFilters}
             channelRenderFilterFn={customMessagingFilter}
             List={listProps => (
