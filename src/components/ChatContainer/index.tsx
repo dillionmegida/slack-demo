@@ -5,6 +5,7 @@ import { Channel } from 'stream-chat-react';
 import AppContext, { CreatingChannel } from 'src/contexts/AppContext';
 import { useState } from 'react';
 import CreateMessagingChannel from '../CreateMessagingChannel';
+import CreatePublicChannel from '../CreatePublicChannel';
 
 const Container = styled.div`
   background-color: #333;
@@ -36,12 +37,17 @@ export default function ChatContainer() {
     status: false,
   });
 
-  const rightContentToRender =
-    creatingChannel.status && creatingChannel.type === 'messaging' ? (
-      <CreateMessagingChannel />
-    ) : (
-      <ChannelChatPreview />
-    );
+  const rightContentToRender = {
+    messaging: <CreateMessagingChannel />,
+    team: <CreatePublicChannel />,
+    null: <ChannelChatPreview />,
+  };
+
+  const activeRightContentToRender = !creatingChannel.status ? (
+    <ChannelChatPreview />
+  ) : (
+    rightContentToRender[`${creatingChannel.type}`]
+  );
 
   return (
     <AppContext.Provider value={{ setCreatingChannel, creatingChannel }}>
@@ -50,7 +56,7 @@ export default function ChatContainer() {
           <TeamChannelList />
         </div>
         <div className="right-column">
-          <Channel>{rightContentToRender}</Channel>
+          <Channel>{activeRightContentToRender}</Channel>
         </div>
       </Container>
     </AppContext.Provider>

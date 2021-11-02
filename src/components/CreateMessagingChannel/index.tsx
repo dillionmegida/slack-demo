@@ -89,9 +89,7 @@ export default function CreateMessagingChannel() {
     setAddedUsers([...addedUsers, user]);
   };
 
-  const cancelCreate = () => {
-    setCreatingChannel({ type: null, status: false });
-  };
+  const cancelCreate = () => setCreatingChannel({ type: null, status: false });
 
   useEffect(() => {
     const getUsers = async () => {
