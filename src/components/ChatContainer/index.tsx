@@ -5,7 +5,7 @@ import { Channel } from 'stream-chat-react';
 import AppContext, { CreatingChannel } from 'src/contexts/AppContext';
 import { useState } from 'react';
 import CreateMessagingChannel from '../CreateMessagingChannel';
-import CreatePublicChannel from '../CreatePublicChannel';
+import AddPublicChannel from '../AddPublicChannel';
 
 const Container = styled.div`
   background-color: #333;
@@ -39,7 +39,7 @@ export default function ChatContainer() {
 
   const rightContentToRender = {
     messaging: <CreateMessagingChannel />,
-    team: <CreatePublicChannel />,
+    team: <AddPublicChannel />,
     null: <ChannelChatPreview />,
   };
 
