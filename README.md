@@ -48,8 +48,6 @@ I couldn't deploy this project because of the database requirements (MongoDB), s
 ### Requirements
 
 - [Node.js](https://nodejs.org/en/) installed on your machine.
-- [MongoDB (Community Version)](https://docs.mongodb.com/manual/administration/install-community/) installed on your machine.
-- [MongoDB Compass](https://www.mongodb.com/try/download/compass) installed on your machine. This provides a GUI for MongoDB.
 - [Stream Account](https://getstream.io/try-for-free/)
 
 ### Clone the Project
@@ -66,6 +64,7 @@ git clone git@github.com:dillionmegida/slack-demo.git
 
 ```shell
 cd slack-demo
+npm install
 ```
 
 ### Provide environment variables
@@ -80,13 +79,11 @@ You would need to get your stream API key from your dashboard.
 
 ### Run the server
 
-For the server to run correctly, you'd need the backend server to be running. Don't forget to follow the guide in the backend repo.
-
 ```bash
 npm run start
 ```
 
-With everything in place, when you go to `localhost:3000`, you'll see a login page. Since you do not have an account yet, you need to sign up on `localhost:3000/signup`.
+With everything in place (including the server), when you go to `localhost:3000`, you'll see a login page. Since you do not have an account yet, you need to sign up on `localhost:3000/signup`.
 
 And then you'll see the slack app, where you've been automatically added to the general and random channel.
 
