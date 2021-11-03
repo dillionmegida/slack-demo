@@ -5,14 +5,23 @@ This is a sample project showing how to use [the Stream React SDK](https://getst
 ## Table of Contents
 
 - [Description](#description)
-- [Gallary](#gallery)
-- [Setting up locally](#getting-started)
+- [Gallery](#gallery)
+  - [Video demo](#video-demo)
+- [Setting up locally](#setting-up-locally)
   - [Requirements](#requirements)
+  - [Clone the project](#clone-the-project)
+  - [Install dependencies](#install-dependencies)
+  - [Provide environment variables](#provide-environment-variables)
+  - [Run the server](#run-the-server)
+  - [TEsting the features](#testing-the-features)
+- [Deployment](#deployment)
+- [Author](#author)
 
 ## Description
 
 Stream can be used in various ways, and this project shows how to build something similar to slack. The features for the app (currently) include:
 
+- Custom UI components for SDK
 - Authentication for users
 - Creating public channels for all users
 - Joining channels
@@ -20,15 +29,17 @@ Stream can be used in various ways, and this project shows how to build somethin
 
 ## Gallery
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 10px">
+![General channel](./images/slack-general-channel.png)
+![Channel for two users](./images/two-people-channel.png)
+![Add messaging channel](./images/add-messaging-channel.png)
+![Create public channel](./images/create-public-channel.png)
+![Browse public channels](./images/browse-public-channels.png)
 
-<img src='./images/slack-general-channel.png' />
-<img src='./images/two-people-channel.png' />
-<img src='./images/add-messaging-channel.png' />
-<img src='./images/create-public-channel.png' />
-<img src='./images/browse-public-channels.png' />
+### Video demo
 
-</div>
+Here's the demo in play:
+
+![Slack demo](./images/slack-demo.gif)
 
 ## Setting up locally
 
@@ -93,7 +104,7 @@ More features will be added as time goes (hopefully)
 
 ## Deployment
 
-Deployment would require having a MongoDB Atlas account or installing MongoDB locally on a hosting provider, and the frontend would call the APIs and work as expected.
+As long as the backend server is hosted correctly, and the APIs can be used, this frontend part can be hosted as easy as you would host any React app (on Netlify, Heroku, your other hosting providers).
 
 ## Author
 
